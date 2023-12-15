@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: clinic.steps.AcceptanceTest
+-------------------------------------------------------------------------------
+Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.69 s - in clinic.steps.AcceptanceTest

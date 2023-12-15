@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminMethods.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic</a> &gt; <a href="index.source.html" class="el_package">clinic.main</a> &gt; <span class="el_source">AdminMethods.java</span></div><h1>AdminMethods.java</h1><pre class="source lang-java linenums">package clinic.main;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L6">public class AdminMethods {</span>
+<span class="fc" id="L7">	private static List&lt;Admin&gt; admins=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L8">	private static List&lt;Service&gt; services=new ArrayList&lt;&gt;();</span>
+	public static void initServices()
+	{
+<span class="fc bfc" id="L11" title="All 2 branches covered.">		if(services.size()&lt;4)</span>
+		{
+<span class="fc" id="L13">			Service s1=new Service(&quot;Massage Therapy&quot;,200);</span>
+<span class="fc" id="L14">			Service s2=new Service(&quot;Sports Injuries&quot;,120);</span>
+<span class="fc" id="L15">			Service s3=new Service(&quot;Custom Orthotics&quot;,300);</span>
+<span class="fc" id="L16">			Service s4=new Service(&quot;Acupuncture&quot;,200);</span>
+<span class="fc" id="L17">			services.add(s1);</span>
+<span class="fc" id="L18">			services.add(s2);</span>
+<span class="fc" id="L19">			services.add(s3);</span>
+<span class="fc" id="L20">			services.add(s4);</span>
+		}
+<span class="fc" id="L22">	}</span>
+	public static Boolean checkIfServiceCanBeAdded(Service s)
+	{
+<span class="fc bfc" id="L25" title="All 2 branches covered.">		for (int i=0 ; i &lt;AdminMethods.services.size() ; i++ )</span>
+		{
+<span class="fc bfc" id="L27" title="All 2 branches covered.">			if(services.get(i).getName().equalsIgnoreCase(s.getName()))</span>
+			{
+<span class="fc" id="L29">				return true;</span>
+			}
+		}
+<span class="fc" id="L32">		return false;</span>
+	}
+	public static void addService(Service s) 
+	{
+<span class="fc" id="L36">		services.add(s);</span>
+<span class="fc" id="L37">	}</span>
+	public static int search(String u)
+	{
+<span class="fc bfc" id="L40" title="All 2 branches covered.">		for(int i=0;i&lt;admins.size();i++)</span>
+		{
+<span class="fc bfc" id="L42" title="All 2 branches covered.">			if(u.equals(admins.get(i).getUsername()))</span>
+<span class="fc" id="L43">				return i;</span>
+		}
+<span class="fc" id="L45">		return -1;</span>
+	}
+	public static List&lt;Service&gt; getServices() {
+<span class="fc" id="L48">		return services;</span>
+	}
+	public static List&lt;Admin&gt; getAdmins() {
+<span class="fc" id="L51">		return admins;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

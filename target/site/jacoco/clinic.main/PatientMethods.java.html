@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientMethods.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic</a> &gt; <a href="index.source.html" class="el_package">clinic.main</a> &gt; <span class="el_source">PatientMethods.java</span></div><h1>PatientMethods.java</h1><pre class="source lang-java linenums">package clinic.main;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+import com.toedter.calendar.JCalendar;
+
+public class PatientMethods extends JFrame implements ActionListener, MouseListener{
+<span class="fc" id="L22">	int index=0;</span>
+<span class="fc" id="L23">	private static List&lt;Patient&gt; patients=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">	private static List&lt;Appointment&gt; appointments=new ArrayList&lt;&gt;();</span>
+	JLabel welcomeLabel;
+	private JCalendar calendar;
+<span class="fc" id="L27">	String fontType=&quot;SansSerif&quot;;</span>
+	private JComboBox&lt;String&gt; servicesChoice;
+	private JComboBox&lt;String&gt; times;
+	private JButton bookAppointment;
+	private JButton showAllAppointments;
+	private JButton getInvoice;
+	private JTextArea text;
+	JLabel calendarLabel;
+	JLabel servicesLabel;
+	JLabel timeLabel;
+	JLabel appsLabel;
+	private JLabel errorLabel;
+<span class="fc" id="L39">	private List&lt;String&gt; servicesNames=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">	private List&lt;String&gt; timesNames=new ArrayList&lt;&gt;();</span>
+	public PatientMethods(String name,int index)
+<span class="fc" id="L42">	{</span>
+<span class="fc" id="L43">		setLayout(null);</span>
+<span class="fc" id="L44">		AdminMethods.initServices();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		for(int i=0;i&lt;AdminMethods.getServices().size();i++)</span>
+		{
+<span class="fc" id="L47">			servicesNames.add(AdminMethods.getServices().get(i).toString()+&quot;NIS&quot;);</span>
+		}
+<span class="fc bfc" id="L49" title="All 2 branches covered.">		for(int i=8;i&lt;18;i++)</span>
+		{	
+<span class="fc" id="L51">				timesNames.add(i+&quot;:00&quot;);</span>
+		}
+<span class="fc" id="L53">		calendarLabel=new JLabel(&quot;Pick a date:&quot;);</span>
+<span class="fc" id="L54">		calendarLabel.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L55">		calendarLabel.setSize(200,30);</span>
+<span class="fc" id="L56">		calendarLabel.setLocation(100,60);</span>
+<span class="fc" id="L57">		add(calendarLabel);</span>
+<span class="fc" id="L58">		servicesLabel=new JLabel(&quot;Select a service:&quot;);</span>
+<span class="fc" id="L59">		servicesLabel.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L60">		servicesLabel.setSize(200,30);</span>
+<span class="fc" id="L61">		servicesLabel.setLocation(320,70);</span>
+<span class="fc" id="L62">		add(servicesLabel);</span>
+<span class="fc" id="L63">		timeLabel=new JLabel(&quot;Select a time:&quot;);</span>
+<span class="fc" id="L64">		timeLabel.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L65">		timeLabel.setSize(200,30);</span>
+<span class="fc" id="L66">		timeLabel.setLocation(320,160);</span>
+<span class="fc" id="L67">		add(timeLabel);</span>
+<span class="fc" id="L68">		appsLabel=new JLabel(&quot;Appointments:&quot;);</span>
+<span class="fc" id="L69">		appsLabel.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L70">		appsLabel.setSize(200,30);</span>
+<span class="fc" id="L71">		appsLabel.setLocation(250,360);</span>
+<span class="fc" id="L72">		add(appsLabel);</span>
+<span class="fc" id="L73">		errorLabel=new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L74">		errorLabel.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L75">		errorLabel.setSize(200,30);</span>
+<span class="fc" id="L76">		errorLabel.setLocation(320,310);</span>
+<span class="fc" id="L77">		add(errorLabel);</span>
+<span class="fc" id="L78">		welcomeLabel=new JLabel(&quot;Welcome &quot;+name);</span>
+<span class="fc" id="L79">		welcomeLabel.setFont(new Font(fontType,Font.BOLD+Font.ITALIC,24));</span>
+<span class="fc" id="L80">		welcomeLabel.setSize(300,30);</span>
+<span class="fc" id="L81">		welcomeLabel.setLocation(180,15);</span>
+<span class="fc" id="L82">		add(welcomeLabel);</span>
+<span class="fc" id="L83">		calendar=new JCalendar();</span>
+<span class="fc" id="L84">		calendar.setSize(220,220);</span>
+<span class="fc" id="L85">		calendar.setLocation(30,90);</span>
+<span class="fc" id="L86">		add(calendar);</span>
+<span class="fc" id="L87">		servicesChoice=new JComboBox&lt;&gt;(servicesNames.toArray(new String[0]));</span>
+<span class="fc" id="L88">		servicesChoice.setSize(210,40);</span>
+<span class="fc" id="L89">		servicesChoice.setLocation(320,100);</span>
+<span class="fc" id="L90">		add(servicesChoice);</span>
+<span class="fc" id="L91">		times=new JComboBox&lt;&gt;(timesNames.toArray(new String[0]));</span>
+<span class="fc" id="L92">		times.setSize(100,40);</span>
+<span class="fc" id="L93">		times.setLocation(320,190);</span>
+<span class="fc" id="L94">		add(times);</span>
+<span class="fc" id="L95">		bookAppointment=new JButton(&quot;Book Appointment&quot;);</span>
+<span class="fc" id="L96">		bookAppointment.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L97">		bookAppointment.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L98">		bookAppointment.setForeground(new Color(255,203,230));</span>
+<span class="fc" id="L99">		bookAppointment.setSize(210,40);</span>
+<span class="fc" id="L100">		bookAppointment.setLocation(320,270);</span>
+<span class="fc" id="L101">		add(bookAppointment);</span>
+<span class="fc" id="L102">		bookAppointment.addActionListener(this);</span>
+<span class="fc" id="L103">		showAllAppointments = new JButton(&quot;Show Appointments&quot;);</span>
+<span class="fc" id="L104">		showAllAppointments.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L105">		showAllAppointments.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L106">		showAllAppointments.setForeground(new Color(255,203,230));</span>
+<span class="fc" id="L107">		showAllAppointments.setSize(210,40);</span>
+<span class="fc" id="L108">		showAllAppointments.setLocation(80,600);</span>
+<span class="fc" id="L109">		add(showAllAppointments);</span>
+<span class="fc" id="L110">		showAllAppointments.addActionListener(this);</span>
+<span class="fc" id="L111">		getInvoice = new JButton(&quot;Get a bill&quot;);</span>
+<span class="fc" id="L112">		getInvoice.setFont(new Font(fontType,Font.BOLD,14));</span>
+<span class="fc" id="L113">		getInvoice.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L114">		getInvoice.setForeground(new Color(255,203,230));</span>
+<span class="fc" id="L115">		getInvoice.setSize(210,40);</span>
+<span class="fc" id="L116">		getInvoice.setLocation(320,600);</span>
+<span class="fc" id="L117">		add(getInvoice);</span>
+<span class="fc" id="L118">		getInvoice.addActionListener(this);</span>
+<span class="fc" id="L119">		text=new JTextArea();</span>
+<span class="fc" id="L120">		text.setText(&quot;&quot;);</span>
+<span class="fc" id="L121">		text.setBackground(Color.WHITE);</span>
+<span class="fc" id="L122">		text.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L123">		text.setSize(530,180);</span>
+<span class="fc" id="L124">		text.setLocation(30,390);</span>
+<span class="fc" id="L125">		add(text);</span>
+<span class="fc" id="L126">		text.addMouseListener(this);</span>
+<span class="fc" id="L127">		setSize(600,700);</span>
+<span class="fc" id="L128">		setLocation(400,10);</span>
+<span class="fc" id="L129">		setVisible(true);</span>
+<span class="fc" id="L130">		setResizable(false);</span>
+<span class="fc" id="L131">		getContentPane().setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L132">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );</span>
+		
+<span class="fc" id="L134">	}</span>
+	public static int checkAvailability(String date, String time) 
+	{
+<span class="fc bfc" id="L137" title="All 2 branches covered.">		for(int i=0;i&lt;appointments.size();i++)</span>
+		{
+<span class="pc bpc" id="L139" title="1 of 4 branches missed.">			if(date.equals(appointments.get(i).getDate()) &amp;&amp; time.equals(appointments.get(i).getTime()))</span>
+<span class="fc" id="L140">				return -1;</span>
+		}
+<span class="fc" id="L142">		return 1;</span>
+		
+	}
+	public static int checkRemoveAvailability(String username,String date, String time) {
+<span class="fc" id="L146">		int index=search(username);</span>
+		List&lt;Appointment&gt; a;
+<span class="fc" id="L148">		a=patients.get(index).getAppointments();</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">		for(int i=0;i&lt;a.size();i++)</span>
+		{
+<span class="pc bpc" id="L151" title="1 of 4 branches missed.">			if((date.equals(a.get(i).getDate()))&amp;&amp;(time.equals(a.get(i).getTime())))</span>
+<span class="fc" id="L152">				return -1;</span>
+		}
+<span class="fc" id="L154">		return 1;</span>
+		
+	}
+	public static int search(String u)
+	{
+<span class="fc bfc" id="L159" title="All 2 branches covered.">		for(int i=0;i&lt;patients.size();i++)</span>
+		{
+<span class="fc bfc" id="L161" title="All 2 branches covered.">			if(u.equals(patients.get(i).getUsername()))</span>
+<span class="fc" id="L162">				return i;</span>
+		}
+<span class="fc" id="L164">		return -1;</span>
+	}
+	public static void addAppointment(String u,Appointment a)
+	{
+<span class="fc" id="L168">		patients.get(search(u)).addToPatientApp(a);</span>
+<span class="fc" id="L169">	}</span>
+	
+	public static void editAppointment(String username,String oldDate,String newDate,String oldTime,String newTime)
+	{
+<span class="fc" id="L173">		int index=search(username);</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">		for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+		{
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">			if((oldDate.equals(patients.get(index).getAppointments().get(i).getDate()))&amp;&amp;</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">					(oldTime.equals(patients.get(index).getAppointments().get(i).getTime())))</span>
+			{
+<span class="fc" id="L179">				patients.get(index).getAppointments().get(i).setDate(newDate);</span>
+<span class="fc" id="L180">				patients.get(index).getAppointments().get(i).setTime(newTime);</span>
+<span class="fc" id="L181">				break;</span>
+			}
+		}
+<span class="fc" id="L184">	}</span>
+	public static int checkIfAppointmentPassed(String date,String time)
+	{
+<span class="fc" id="L187">		int hour=Integer.parseInt(time.split(&quot;:&quot;)[0]);</span>
+<span class="fc" id="L188">		int minute=Integer.parseInt(time.split(&quot;:&quot;)[1]);</span>
+		/////////////////////////////////////////////////////////
+<span class="fc" id="L190">		int day=Integer.parseInt(date.split(&quot;/&quot;)[0]);</span>
+<span class="fc" id="L191">		int month=Integer.parseInt(date.split(&quot;/&quot;)[1]);</span>
+<span class="fc" id="L192">		int year=Integer.parseInt(date.split(&quot;/&quot;)[2]);</span>
+		/////////////////////////////////////////////////////////////////
+<span class="fc" id="L194">		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy HH:mm&quot;);  </span>
+<span class="fc" id="L195">		LocalDateTime now = LocalDateTime.now();</span>
+<span class="fc" id="L196">		int currentDay=Integer.parseInt(dtf.format(now).split(&quot; &quot;)[0].split(&quot;/&quot;)[0]);</span>
+<span class="fc" id="L197">		int currentMonth=Integer.parseInt(dtf.format(now).split(&quot; &quot;)[0].split(&quot;/&quot;)[1]);</span>
+<span class="fc" id="L198">		int currentYear=Integer.parseInt(dtf.format(now).split(&quot; &quot;)[0].split(&quot;/&quot;)[2]);</span>
+		////////////////////////////////////////////////////////////////////////////////////////////////
+<span class="fc" id="L200">		int currentHour=Integer.parseInt(dtf.format(now).split(&quot; &quot;)[1].split(&quot;:&quot;)[0]);</span>
+<span class="fc" id="L201">		int currentMinute=Integer.parseInt(dtf.format(now).split(&quot; &quot;)[1].split(&quot;:&quot;)[1]);</span>
+		//////////////////////////////////////////////////////////////////////////////////////////////
+<span class="pc bpc" id="L203" title="2 of 6 branches missed.">		if((currentDay&gt;day)||(currentMonth&gt;month)||(currentYear&gt;year))</span>
+<span class="fc" id="L204">			return 1;</span>
+<span class="pc bpc" id="L205" title="5 of 6 branches missed.">		else if((currentDay&lt;day)||(currentMonth&lt;month)||(currentYear&lt;year))</span>
+<span class="fc" id="L206">			return -1;</span>
+<span class="nc bnc" id="L207" title="All 6 branches missed.">		else if((currentDay==day)||(currentMonth==month)||(currentYear==year))</span>
+		{
+<span class="nc bnc" id="L209" title="All 4 branches missed.">			if((currentHour&gt;=hour)&amp;&amp;(currentMinute&gt;=minute))</span>
+<span class="nc" id="L210">				return 1;</span>
+			else
+<span class="nc" id="L212">				return -1;</span>
+		}
+<span class="nc" id="L214">		return -1;</span>
+				
+	}
+	public static void removeAppointment(String username,String date,String time)
+	{
+<span class="fc" id="L219">		int index=search(username);</span>
+		List&lt;Appointment&gt; a;
+<span class="fc" id="L221">		a=patients.get(index).getAppointments();</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">		for(int i=0;i&lt;a.size();i++)</span>
+		{
+<span class="pc bpc" id="L224" title="2 of 4 branches missed.">			if((date.equals(a.get(i).getDate()))&amp;&amp;(time.equals(a.get(i).getTime())))</span>
+			{
+<span class="fc" id="L226">				patients.get(index).removeAppointment(i);</span>
+<span class="fc" id="L227">				break;</span>
+			}
+		}
+<span class="fc" id="L230">	}</span>
+	public static void changeAppointmentToVisit(String username,String date,String time)
+	{
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">		for(int i=0;i&lt;appointments.size();i++)</span>
+		{
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">			if( date.equals(appointments.get(i).getDate()) &amp;&amp; </span>
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">					time.equals(appointments.get(i).getTime())</span>
+			   )
+			{
+<span class="fc" id="L239">				appointments.get(i).setStatus(1);</span>
+<span class="fc" id="L240">				break;</span>
+			}
+		}
+<span class="fc" id="L243">		int index=search(username);</span>
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">		for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+		{
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">			if( date.equals(patients.get(index).getAppointments().get(i).getDate()) &amp;&amp; </span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">					time.equals(patients.get(index).getAppointments().get(i).getTime())</span>
+			  )
+			{	
+<span class="fc" id="L250">				patients.get(index).getAppointments().get(i).setStatus(1);</span>
+<span class="fc" id="L251">				patients.get(index).resortAppointmentRecords();</span>
+<span class="fc" id="L252">				break;</span>
+			}
+		}
+<span class="fc" id="L255">	}</span>
+	public static double invoiceForAVisit(String username,String date,String time)
+	{
+<span class="fc" id="L258">		int index=search(username);</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">		for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+		{
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">			if( date.equals(patients.get(index).getAppointments().get(i).getDate()) &amp;&amp; </span>
+<span class="pc bpc" id="L262" title="1 of 2 branches missed.">					time.equals(patients.get(index).getAppointments().get(i).getTime())</span>
+			  )
+			{
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">				if(patients.get(index).getAppointments().get(i).getStatus()==1)</span>
+<span class="fc" id="L266">					return patients.get(index).getAppointments().get(i).getService().getPrice();</span>
+				else
+<span class="nc" id="L268">					return -1;			}</span>
+		}
+<span class="nc" id="L270">		return -1;</span>
+	}
+	public static void main(String []args)
+	{
+<span class="nc" id="L274">		PatientMethods pm=new PatientMethods(&quot;Mira&quot;,0);</span>
+<span class="nc" id="L275">		pm.setVisible(true);</span>
+		
+<span class="nc" id="L277">	}</span>
+	public static List&lt;Patient&gt; getPatients() {
+<span class="fc" id="L279">		return patients;</span>
+	}
+	public static List&lt;Appointment&gt; getAppointments() {
+<span class="fc" id="L282">		return appointments;</span>
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+<span class="fc bfc" id="L286" title="All 2 branches covered.">		if(e.getSource()==bookAppointment)</span>
+		{
+<span class="fc" id="L288">			String []months={&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dec&quot;};</span>
+<span class="fc" id="L289">			String day = calendar.getDate().toString().split(&quot; &quot;)[2];</span>
+<span class="fc" id="L290">			String month = calendar.getDate().toString().split(&quot; &quot;)[1];</span>
+<span class="fc" id="L291">			String year = calendar.getDate().toString().split(&quot; &quot;)[5];</span>
+<span class="pc bpc" id="L292" title="1 of 2 branches missed.">			for(int i=0;i&lt;months.length;i++)</span>
+			{
+<span class="fc bfc" id="L294" title="All 2 branches covered.">				if(months[i].equals(month))</span>
+				{
+<span class="fc" id="L296">					month=&quot;&quot;+(i+1);</span>
+<span class="fc" id="L297">					break;</span>
+				}
+			}
+<span class="fc" id="L300">			String date=day+&quot;/&quot;+month+&quot;/&quot;+year;</span>
+<span class="fc" id="L301">			String time=((String) times.getSelectedItem());</span>
+<span class="fc" id="L302">			int result=checkAvailability(date,time);</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">			if(result!=-1) </span>
+			{
+<span class="fc" id="L305">				Appointment a= new Appointment(date,time,0,AdminMethods.getServices().get(servicesChoice.getSelectedIndex()));</span>
+<span class="fc" id="L306">				appointments.add(a);</span>
+<span class="fc" id="L307">				patients.get(index).addToPatientApp(a);</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">				for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+				{
+<span class="fc" id="L310">					int res=checkIfAppointmentPassed(patients.get(index).getAppointments().get(i).getDate(),patients.get(index).getAppointments().get(i).getTime());</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">					if(res==1)</span>
+<span class="fc" id="L312">						patients.get(index).getAppointments().get(i).setStatus(1);</span>
+					else
+<span class="fc" id="L314">						patients.get(index).getAppointments().get(i).setStatus(0);;</span>
+				}
+<span class="fc" id="L316">				errorLabel.setForeground(new Color(45,161,37));</span>
+<span class="fc" id="L317">				errorLabel.setText(&quot;Appointment is added&quot;);</span>
+<span class="fc" id="L318">			}</span>
+			else
+			{
+<span class="fc" id="L321">				errorLabel.setForeground(Color.RED);</span>
+<span class="fc" id="L322">				errorLabel.setText(&quot;Appointment is unavailable&quot;);</span>
+			}
+		}
+<span class="fc bfc" id="L325" title="All 2 branches covered.">		if(e.getSource()==showAllAppointments)</span>
+		{
+<span class="fc" id="L327">			text.setText(&quot;&quot;);</span>
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">			if(patients.get(index).getAppointments().isEmpty())</span>
+			{
+<span class="nc" id="L330">				text.setText(&quot;No Available Appointments&quot;);</span>
+			}
+			else {
+<span class="fc bfc" id="L333" title="All 2 branches covered.">				for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+				{
+<span class="fc" id="L335">					text.append(&quot;Appointment #&quot;+(i+1)+&quot;\n&quot;);</span>
+<span class="fc" id="L336">					text.append(patients.get(index).getAppointments().get(i).toString()+&quot;\n\n&quot;);</span>
+				}
+			}
+		}
+<span class="fc bfc" id="L340" title="All 2 branches covered.">		if(e.getSource()==getInvoice)</span>
+		{
+<span class="fc" id="L342">			String email = text.getText();</span>
+<span class="fc" id="L343">			String message=&quot;&quot;;</span>
+<span class="fc" id="L344">			Double price=0.0;</span>
+<span class="fc bfc" id="L345" title="All 2 branches covered.">			for(int i=0;i&lt;patients.get(index).getAppointments().size();i++)</span>
+			{
+<span class="fc" id="L347">				message+=new StringBuilder(&quot;Appointment #&quot;+(i+1)+&quot;\n&quot;);</span>
+<span class="fc" id="L348">				message+=new StringBuilder(patients.get(index).getAppointments().get(i).toString()+&quot;\n\n&quot;);</span>
+<span class="fc" id="L349">				price+=patients.get(index).getAppointments().get(i).getService().getPrice();</span>
+			}
+<span class="fc" id="L351">			message+=&quot;\n\nYour total bill is &quot;+price+&quot; NIS\n\nThank you.&quot;;</span>
+			try {
+<span class="fc" id="L353">				JavaEmailSender.sendMail(email,message);</span>
+<span class="nc" id="L354">			} catch (Exception e1) {</span>
+<span class="fc" id="L355">			}</span>
+			
+			
+		}
+		
+<span class="fc" id="L360">	}</span>
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L364">		text.setText(&quot;&quot;);</span>
+<span class="nc" id="L365">	}</span>
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L369">		text.setText(&quot;&quot;);</span>
+<span class="nc" id="L370">	}</span>
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L374">		text.setText(&quot;&quot;);</span>
+<span class="nc" id="L375">	}</span>
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+<span class="nc" id="L380">	}</span>
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+<span class="nc" id="L385">	}</span>
+	public JCalendar getCalendar() {
+<span class="fc" id="L387">		return calendar;</span>
+	}
+	public JButton getBookAppointment() {
+<span class="fc" id="L390">		return bookAppointment;</span>
+	}
+	public JComboBox&lt;String&gt; getServicesChoice() {
+<span class="fc" id="L393">		return servicesChoice;</span>
+	}
+	public JComboBox&lt;String&gt; getTimes() {
+<span class="fc" id="L396">		return times;</span>
+	}
+	public JLabel getErrorLabel() {
+<span class="fc" id="L399">		return errorLabel;</span>
+	}
+	public JButton getShowAllAppointments() {
+<span class="fc" id="L402">		return showAllAppointments;</span>
+	}
+	public JTextArea getText() {
+<span class="fc" id="L405">		return text;</span>
+	}
+	public JButton getGetInvoice() {
+<span class="fc" id="L408">		return getInvoice;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

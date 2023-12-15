@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+clinic,clinic.main,Signup,0,808,0,14,0,140,0,16,0,9
+clinic,clinic.main,Login.new MouseAdapter() {...},16,6,0,0,6,1,1,1,1,1
+clinic,clinic.main,User,0,33,0,0,0,14,0,7,0,7
+clinic,clinic.main,Admin,0,10,0,0,0,4,0,3,0,3
+clinic,clinic.main,Patient,10,104,1,3,1,24,1,11,0,10
+clinic,clinic.main,Service,0,36,0,0,0,11,0,6,0,6
+clinic,clinic.main,Appointment,0,100,0,2,0,26,0,12,0,11
+clinic,clinic.main,AdminMethods,3,106,0,10,1,24,1,12,1,7
+clinic,clinic.main,JavaEmailSender,4,74,0,0,2,20,1,2,1,2
+clinic,clinic.main,PatientMethods,74,1468,37,59,20,214,36,40,6,22
+clinic,clinic.main,JavaEmailSender.new Authenticator() {...},0,9,0,0,0,2,0,2,0,2
+clinic,clinic.main,Login,23,858,2,30,6,162,4,24,2,10

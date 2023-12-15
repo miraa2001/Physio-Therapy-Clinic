@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Signup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic</a> &gt; <a href="index.source.html" class="el_package">clinic.main</a> &gt; <span class="el_source">Signup.java</span></div><h1>Signup.java</h1><pre class="source lang-java linenums">package clinic.main;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class Signup extends JFrame implements ActionListener{
+<span class="fc" id="L10">	String fontType=&quot;SansSerif&quot;;</span>
+	JLabel signupLabel;
+	JLabel usernameLabel;
+	JLabel passwordLabel;
+	JLabel phoneNumber;
+	JLabel nameLabel;
+	JLabel messageLabel;
+	private JTextField usernameTF;
+	private JTextField nameTF;
+	private JPasswordField passwordTF;
+	JSeparator s1;
+	JSeparator s2;
+	JSeparator s3;
+	private JCheckBox showPassword;
+	private JButton signUpButton;
+	private Boolean res;
+	public static Boolean search(String u)
+	{
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		if(PatientMethods.search(u)!=-1)</span>
+<span class="fc" id="L29">			return true;</span>
+
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		for(int i=0;i&lt;AdminMethods.getAdmins().size();i++)</span>
+		{
+<span class="fc bfc" id="L33" title="All 2 branches covered.">			if(u.equals(AdminMethods.getAdmins().get(i).getUsername()))</span>
+			{
+<span class="fc" id="L35">				return true;</span>
+			}
+		}
+<span class="fc" id="L38">		return false;</span>
+	}
+	public Signup()
+<span class="fc" id="L41">	{</span>
+<span class="fc" id="L42">		setLayout(null);</span>
+<span class="fc" id="L43">		signupLabel = new JLabel(&quot;Sign Up Portal&quot;);</span>
+<span class="fc" id="L44">		signupLabel.setLocation(125,20);</span>
+<span class="fc" id="L45">		signupLabel.setSize(170,30);</span>
+<span class="fc" id="L46">		signupLabel.setFont(new Font(fontType,Font.BOLD+Font.ITALIC,22));</span>
+<span class="fc" id="L47">		signupLabel.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L48">		signupLabel.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L49">		add(signupLabel);</span>
+<span class="fc" id="L50">		usernameLabel=new JLabel(&quot;Username&quot;);</span>
+<span class="fc" id="L51">		usernameLabel.setFont(new Font(fontType,Font.BOLD,18));</span>
+<span class="fc" id="L52">		usernameLabel.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L53">		usernameLabel.setForeground(Color.BLACK);</span>
+<span class="fc" id="L54">		usernameLabel.setLocation(70,90);</span>
+<span class="fc" id="L55">		usernameLabel.setSize(90,40);</span>
+<span class="fc" id="L56">		add(usernameLabel);</span>
+<span class="fc" id="L57">		passwordLabel=new JLabel(&quot;Password&quot;);</span>
+<span class="fc" id="L58">		passwordLabel.setFont(new Font(fontType,Font.BOLD,18));</span>
+<span class="fc" id="L59">		passwordLabel.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L60">		passwordLabel.setForeground(Color.BLACK);</span>
+<span class="fc" id="L61">		passwordLabel.setLocation(70,160);</span>
+<span class="fc" id="L62">		passwordLabel.setSize(90,40);</span>
+<span class="fc" id="L63">		add(passwordLabel);</span>
+<span class="fc" id="L64">		nameLabel = new JLabel(&quot;Name&quot;);</span>
+<span class="fc" id="L65">		nameLabel.setFont(new Font(fontType,Font.BOLD,18));</span>
+<span class="fc" id="L66">		nameLabel.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L67">		nameLabel.setForeground(Color.BLACK);</span>
+<span class="fc" id="L68">		nameLabel.setLocation(70,240);</span>
+<span class="fc" id="L69">		nameLabel.setSize(90,40);</span>
+<span class="fc" id="L70">		add(nameLabel);</span>
+		
+<span class="fc" id="L72">		usernameTF=new JTextField();</span>
+<span class="fc" id="L73">		usernameTF.setText(&quot;&quot;);</span>
+<span class="fc" id="L74">		usernameTF.setForeground(Color.BLACK);</span>
+<span class="fc" id="L75">		usernameTF.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L76">		usernameTF.setBorder(javax.swing.BorderFactory.createEmptyBorder());</span>
+<span class="fc" id="L77">		usernameTF.setFont(new Font(fontType,Font.PLAIN,14));</span>
+<span class="fc" id="L78">		usernameTF.setSize(170, 20);</span>
+<span class="fc" id="L79">		usernameTF.setLocation(170,100);</span>
+<span class="fc" id="L80">		add(usernameTF);</span>
+		
+<span class="fc" id="L82">		s1=new JSeparator();</span>
+<span class="fc" id="L83">		s1.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L84">		s1.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L85">		s1.setSize(170, 5);</span>
+<span class="fc" id="L86">		s1.setLocation(170, 120);</span>
+<span class="fc" id="L87">		add(s1);</span>
+		
+<span class="fc" id="L89">		passwordTF=new JPasswordField();</span>
+<span class="fc" id="L90">		passwordTF.setText(&quot;&quot;);</span>
+<span class="fc" id="L91">		passwordTF.setForeground(Color.BLACK);</span>
+<span class="fc" id="L92">		passwordTF.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L93">		passwordTF.setBorder(javax.swing.BorderFactory.createEmptyBorder());</span>
+<span class="fc" id="L94">		passwordTF.setFont(new Font(fontType,Font.PLAIN,14));</span>
+<span class="fc" id="L95">		passwordTF.setSize(170, 20);</span>
+<span class="fc" id="L96">		passwordTF.setLocation(170,170);</span>
+<span class="fc" id="L97">		add(passwordTF);</span>
+		
+<span class="fc" id="L99">		s2=new JSeparator();</span>
+<span class="fc" id="L100">		s2.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L101">		s2.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L102">		s2.setSize(170, 5);</span>
+<span class="fc" id="L103">		s2.setLocation(170, 190);</span>
+<span class="fc" id="L104">		add(s2);</span>
+		
+<span class="fc" id="L106">		showPassword=new JCheckBox(&quot;Show Password&quot;);</span>
+<span class="fc" id="L107">		showPassword.setFont(new Font(fontType,Font.BOLD,12));</span>
+<span class="fc" id="L108">		showPassword.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L109">		showPassword.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L110">		showPassword.setSize(170,30);</span>
+<span class="fc" id="L111">		showPassword.setLocation(170,200);</span>
+<span class="fc" id="L112">		showPassword.addActionListener(this);</span>
+<span class="fc" id="L113">		add(showPassword);</span>
+		
+<span class="fc" id="L115">		nameTF=new JTextField();</span>
+<span class="fc" id="L116">		nameTF.setText(&quot;&quot;);</span>
+<span class="fc" id="L117">		nameTF.setForeground(Color.BLACK);</span>
+<span class="fc" id="L118">		nameTF.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L119">		nameTF.setBorder(javax.swing.BorderFactory.createEmptyBorder());</span>
+<span class="fc" id="L120">		nameTF.setFont(new Font(fontType,Font.PLAIN,14));</span>
+<span class="fc" id="L121">		nameTF.setSize(170, 20);</span>
+<span class="fc" id="L122">		nameTF.setLocation(170,250);</span>
+<span class="fc" id="L123">		add(nameTF);</span>
+		
+<span class="fc" id="L125">		s3=new JSeparator();</span>
+<span class="fc" id="L126">		s3.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L127">		s3.setForeground(new Color(0,0,0));</span>
+<span class="fc" id="L128">		s3.setSize(170, 5);</span>
+<span class="fc" id="L129">		s3.setLocation(170,270);</span>
+<span class="fc" id="L130">		add(s3);</span>
+		
+<span class="fc" id="L132">		signUpButton=new JButton(&quot;Sign Up&quot;);</span>
+<span class="fc" id="L133">		signUpButton.setFont(new Font(fontType,Font.BOLD,16));</span>
+<span class="fc" id="L134">		signUpButton.setBackground(new Color(0,0,0));</span>
+<span class="fc" id="L135">		signUpButton.setForeground(new Color(255,203,230));</span>
+<span class="fc" id="L136">		signUpButton.setSize(100,35);</span>
+<span class="fc" id="L137">		signUpButton.setLocation(145,310);</span>
+<span class="fc" id="L138">		add(signUpButton);</span>
+<span class="fc" id="L139">		signUpButton.addActionListener(this);</span>
+<span class="fc" id="L140">		messageLabel=new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L141">		messageLabel.setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L142">		messageLabel.setFont(new Font(fontType,Font.BOLD,12));</span>
+<span class="fc" id="L143">		messageLabel.setSize(200,40);</span>
+<span class="fc" id="L144">		messageLabel.setLocation(100,340);</span>
+<span class="fc" id="L145">		add(messageLabel);</span>
+<span class="fc" id="L146">		setSize(400,440);</span>
+<span class="fc" id="L147">		setLocation(480,100);</span>
+<span class="fc" id="L148">		setVisible(true);</span>
+<span class="fc" id="L149">		setResizable(false);</span>
+<span class="fc" id="L150">		getContentPane().setBackground(new Color(255,203,230));</span>
+<span class="fc" id="L151">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );</span>
+		
+<span class="fc" id="L153">	}</span>
+	public void actionPerformed(ActionEvent e) 
+	{
+<span class="fc bfc" id="L156" title="All 2 branches covered.">			if(e.getSource()==showPassword)</span>
+			{
+<span class="fc bfc" id="L158" title="All 2 branches covered.">				if(showPassword.isSelected())</span>
+				{
+<span class="fc" id="L160">					passwordTF.setFont(new Font(fontType,Font.PLAIN,14));</span>
+<span class="fc" id="L161">					passwordTF.setEchoChar((char) 0);</span>
+				}
+				else
+				{	
+<span class="fc" id="L165">					passwordTF.setEchoChar('\u26AB');</span>
+<span class="fc" id="L166">					passwordTF.setFont(new Font(fontType,Font.PLAIN,12));</span>
+				}
+			}
+<span class="fc bfc" id="L169" title="All 2 branches covered.">			if(e.getSource()==signUpButton)</span>
+			{
+<span class="fc bfc" id="L171" title="All 2 branches covered.">				if(Boolean.TRUE.equals( search( usernameTF.getText() ) ) )</span>
+				{
+<span class="fc" id="L173">					res=true;</span>
+<span class="fc" id="L174">					messageLabel.setForeground(Color.RED);</span>
+<span class="fc" id="L175">					messageLabel.setText(&quot;User Already Exists. Try Again&quot;);</span>
+<span class="fc" id="L176">					messageLabel.setLocation(100,340);</span>
+				}
+				else
+				{
+<span class="fc" id="L180">					res=false;</span>
+<span class="fc" id="L181">					messageLabel.setForeground(new Color(45,161,37));</span>
+<span class="fc" id="L182">					messageLabel.setLocation(100,340);</span>
+<span class="fc" id="L183">					messageLabel.setText(&quot;User Account has been created&quot;);</span>
+<span class="fc" id="L184">					Patient p = new Patient(usernameTF.getText(),String.valueOf(passwordTF.getPassword()),nameTF.getText());</span>
+<span class="fc" id="L185">					PatientMethods.getPatients().add(p);</span>
+<span class="fc" id="L186">					String n=PatientMethods.getPatients().get(PatientMethods.search(usernameTF.getText())).getName();</span>
+<span class="fc" id="L187">					int i=PatientMethods.search(usernameTF.getText());</span>
+<span class="fc" id="L188">					PatientMethods pm=new PatientMethods(n,i);</span>
+<span class="fc" id="L189">					pm.setVisible(true);</span>
+				}
+			}
+<span class="fc" id="L192">	}</span>
+	public JTextField getUsernameTF() {
+<span class="fc" id="L194">		return usernameTF;</span>
+	}
+	public JPasswordField getPasswordTF() {
+<span class="fc" id="L197">		return passwordTF;</span>
+	}
+	public JTextField getNameTF() {
+<span class="fc" id="L200">		return nameTF;</span>
+	}
+	public JButton getSignUp() {
+<span class="fc" id="L203">		return signUpButton;</span>
+	}
+	public JCheckBox getShowPassword() {
+<span class="fc" id="L206">		return showPassword;</span>
+	}
+	public Boolean getRes() {
+<span class="fc" id="L209">		return res;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

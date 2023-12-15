@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Appointment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic</a> &gt; <a href="index.source.html" class="el_package">clinic.main</a> &gt; <span class="el_source">Appointment.java</span></div><h1>Appointment.java</h1><pre class="source lang-java linenums">package clinic.main;
+
+public class Appointment {
+	private String date;
+	private String time;	
+	Service service;
+	private int status;//0 booked, 1 visited
+	public Appointment(String d,String t,int i)
+<span class="fc" id="L9">	{</span>
+<span class="fc" id="L10">		this.setDate(d);</span>
+<span class="fc" id="L11">		this.setTime(t);</span>
+<span class="fc" id="L12">		this.setStatus(i);</span>
+<span class="fc" id="L13">		this.setService(AdminMethods.getServices().get(0));</span>
+<span class="fc" id="L14">	}</span>
+	public Appointment(String d,String t,int i,Service s)
+<span class="fc" id="L16">	{</span>
+<span class="fc" id="L17">		this.setDate(d);</span>
+<span class="fc" id="L18">		this.setTime(t);</span>
+<span class="fc" id="L19">		this.setStatus(i);</span>
+<span class="fc" id="L20">		this.setService(s);</span>
+<span class="fc" id="L21">	}</span>
+	public void setService( Service s){
+<span class="fc" id="L23">		service = s;</span>
+<span class="fc" id="L24">	}</span>
+	
+	public Service getService(){
+<span class="fc" id="L27">		return service;</span>
+		
+	}
+	public void setStatus(int i){
+<span class="fc" id="L31">		this.status = i;</span>
+<span class="fc" id="L32">	}</span>
+	
+	public int getStatus(){
+<span class="fc" id="L35">		return this.status;</span>
+		
+	}
+	public String getDate() {
+<span class="fc" id="L39">		return date;</span>
+	}
+	public void setDate(String date) {
+<span class="fc" id="L42">		this.date = date;</span>
+<span class="fc" id="L43">	}</span>
+	public String getTime() {
+<span class="fc" id="L45">		return time;</span>
+	}
+	public void setTime(String time) {
+<span class="fc" id="L48">		this.time = time;</span>
+<span class="fc" id="L49">	}</span>
+	@Override
+	public String toString()
+	{
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		return &quot;Date: &quot;+date + &quot;  Time: &quot; + time + &quot;  Status: &quot;+(status==1?&quot;Visited&quot;:&quot;Pending&quot;)+&quot;  Service: &quot;+</span>
+<span class="fc" id="L54">				this.service.getName()+&quot;  Price: &quot;+this.service.getPrice()+&quot;NIS&quot;;</span>
+	}
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

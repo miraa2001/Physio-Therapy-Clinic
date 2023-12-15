@@ -1,0 +1,15 @@
+clinic\steps\patientEditAppSteps.class
+clinic\steps\visitsSteps.class
+clinic\steps\loginGUISteps.class
+clinic\steps\signUpGUI.class
+clinic\steps\patientMethodsGUISteps.class
+clinic\steps\patientRemoveAppSteps.class
+clinic\steps\patientAddServiceSteps.class
+clinic\steps\signupSteps.class
+clinic\steps\AcceptanceTest.class
+clinic\steps\patientAddInvoiceSteps.class
+clinic\steps\adminAddServiceSteps.class
+clinic\steps\adminGenerateReportSteps.class
+clinic\steps\logoutSteps.class
+clinic\steps\patientAddAppSteps.class
+clinic\steps\loginSteps.class

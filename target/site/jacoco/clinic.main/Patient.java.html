@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Patient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">clinic</a> &gt; <a href="index.source.html" class="el_package">clinic.main</a> &gt; <span class="el_source">Patient.java</span></div><h1>Patient.java</h1><pre class="source lang-java linenums">package clinic.main;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Patient extends User{
+<span class="fc" id="L7">	private Boolean logState=false;</span>
+<span class="fc" id="L8">	private List&lt;Appointment&gt; appointments=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L9">	private List&lt;Appointment&gt; appointmentRecords=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L10">	private List&lt;Appointment&gt; visitsRecords=new ArrayList&lt;&gt;();</span>
+	public Patient(String s1,String s2,String s3)
+	{
+<span class="fc" id="L13">		super(s1,s2,s3);</span>
+<span class="fc" id="L14">	}</span>
+	@Override
+	public String toString()
+	{
+<span class="fc" id="L18">		return super.getName()+ &quot; &quot;;</span>
+	}
+	public Boolean getLogState() {
+<span class="fc" id="L21">		return logState;</span>
+	}
+	public void setLogState(Boolean logStatee) {
+<span class="fc" id="L24">		this.logState = logStatee;</span>
+<span class="fc" id="L25">	}</span>
+	public List&lt;Appointment&gt; getAppointments() {
+<span class="fc" id="L27">		return appointments;</span>
+	}
+	public void addToPatientApp(Appointment a)
+	{
+<span class="fc" id="L31">		appointments.add(a);</span>
+<span class="fc" id="L32">	}</span>
+	public void removeAppointment(int i)
+	{
+<span class="fc" id="L35">		this.appointments.remove(i);</span>
+<span class="fc" id="L36">	}</span>
+	public void addToVisitsRecord(Appointment a)
+	{
+<span class="fc" id="L39">		this.visitsRecords.add(a);</span>
+<span class="fc" id="L40">	}</span>
+	public void resortAppointmentRecords()
+	{
+<span class="fc" id="L43">		this.appointmentRecords.removeAll(appointmentRecords);</span>
+<span class="fc" id="L44">		this.visitsRecords.removeAll(visitsRecords);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		for(int i=0;i&lt;this.appointments.size();i++)</span>
+		{
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">			if(this.appointments.get(i).getStatus()==0)</span>
+			{
+<span class="nc" id="L49">				this.appointmentRecords.add(this.appointments.get(i));</span>
+			}
+			else
+<span class="fc" id="L52">				this.visitsRecords.add(this.appointments.get(i));</span>
+		}
+<span class="fc" id="L54">	}</span>
+	public List&lt;Appointment&gt; getVisitsRecords() {
+<span class="fc" id="L56">		return visitsRecords;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
